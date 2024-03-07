@@ -36,15 +36,21 @@ export class UserService {
   }
 
   async getUser(id: number) {
-    return this.prisma.user.findUnique({ where: { id } });
+    return this.prisma.user.findUnique({
+      where: { id },
+      include: { sleepPatterns: true },
+    });
   }
 
   async deleteUser(id: number) {
-    return this.prisma.user.delete({ where: { id } });
+    return this.prisma.user.delete({
+      where: { id },
+      include: { sleepPatterns: true },
+    });
   }
 
   async getUsers() {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({ include: { sleepPatterns: true } });
   }
 
   async deleteUsers() {
