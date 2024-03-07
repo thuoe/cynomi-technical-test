@@ -1,28 +1,40 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Layout, Menu } from 'antd'
+import { Content, Footer, Header } from 'antd/es/layout/layout'
+import { MenuItemType } from 'antd/es/menu/hooks/useItems'
+import { Link, useLoaderData } from 'react-router-dom'
+import { NavItem } from './types'
 
-function App() {
-  const [greeting, setGreeting] = useState<string>('')
+const navItems: MenuItemType[] = [
+  {
+    key: NavItem.Home,
+    label: <Link to="/">{NavItem.Home}</Link>,
+  },
+  {
+    key: NavItem.View,
+    label: <Link to="/view">{NavItem.View}</Link>,
+  }
+]
 
-  useEffect(() => {
-    fetch('/api')
-    .then((res) => res.text())
-    .then(setGreeting)
-  }, [])
+type Props = {
+  content: JSX.Element
+}
 
+const App = ({ content }: Props) => {
+  const loader = useLoaderData() as NavItem
+  const selectedNavItem = navItems.find(item => item.key === loader) ?? navItems[0]
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>{greeting}</h1>
+    <> 
+    <Layout style={{ height: '100vh', overflow: "auto"}}>
+      <Header style={{ display: 'flex', alignItems: 'center'}}>
+        <Menu selectedKeys={[String(selectedNavItem.key)]} theme='dark' mode='horizontal' items={navItems} style={{ flex: 1, minWidth: 0 }} />
+      </Header>
+      <Content style={{ padding: '0 48px' }}>
+          {content}
+      </Content>
+      <Footer style={{ textAlign: 'center' }}>
+        Cynomi Technical Task ©{new Date().getFullYear()} Created by Eddie Thuo
+      </Footer>
+    </Layout>
     </>
   )
 }
