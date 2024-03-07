@@ -19,14 +19,23 @@ export class UserService {
     };
   }) {
     const { sleepPattern, ...user } = data;
-    return this.prisma.user.create({
-      data: {
+    const sleepPatternInput = {
+      ...sleepPattern,
+      date: new Date(sleepPattern.date),
+    };
+    return this.prisma.user.upsert({
+      where: {
+        name: user.name,
+      },
+      update: {
+        sleepPatterns: {
+          create: sleepPatternInput,
+        },
+      },
+      create: {
         ...user,
         sleepPatterns: {
-          create: {
-            ...sleepPattern,
-            date: new Date(sleepPattern.date),
-          },
+          create: sleepPatternInput,
         },
       },
       include: {
