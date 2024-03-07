@@ -9,7 +9,7 @@ type FieldValues = {
 
 const { Title } = Typography
 
-const UserForm = () => {
+const UserForm = (): JSX.Element => {
   const [api, contextHolder] = notification.useNotification();
 
   const showSuccessToast = (message: string) => {

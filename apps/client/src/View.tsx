@@ -92,7 +92,7 @@ const columns: TableProps<TableData>['columns'] = [
 
 const { Title, Paragraph } = Typography
 
-const View = () => {
+const View = (): JSX.Element => {
   const [selectedKey, setSelectedKey] = useState<React.Key | null>(null)
   const userData = dummyUserData.find(({ id }) => id === selectedKey)
   return (

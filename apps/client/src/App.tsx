@@ -19,7 +19,7 @@ type Props = {
   content: JSX.Element
 }
 
-const App = ({ content }: Props) => {
+const App = ({ content }: Props): JSX.Element => {
   const loader = useLoaderData() as NavItem
   const selectedNavItem = navItems.find(item => item.key === loader) ?? navItems[0]
   return (
