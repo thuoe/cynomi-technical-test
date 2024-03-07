@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "start": "node apps/server/dist/main"
   },
   "author": "",
   "license": "ISC",
