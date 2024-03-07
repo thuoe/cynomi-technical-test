@@ -7,7 +7,9 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" && prisma format",
+    "migrate": "prisma migrate dev",
+    "generate": "prisma generate",
     "start": "nest start",
     "dev": "nest start --preserveWatchOutput",
     "start:debug": "nest start --debug --watch",
