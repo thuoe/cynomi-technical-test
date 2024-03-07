@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { UserService } from './user.service';
-import { GENDER, User } from '@prisma/client';
+import { User } from '@prisma/client';
 
 @Controller()
 export class UserController {
@@ -17,9 +17,15 @@ export class UserController {
   }
 
   @Post('/user')
-  createUser(@Body() data: { name: string; gender: GENDER }): Promise<User> {
-    const { name, gender } = data;
-    return this.userService.createUser({ name, gender });
+  createUser(
+    @Body()
+    data: {
+      name: string;
+      gender: 'male' | 'female' | 'other';
+      sleepPattern: { duration: number; date?: string };
+    },
+  ): Promise<User> {
+    return this.userService.createUser({ ...data });
   }
 
   @Delete('/user/:id')

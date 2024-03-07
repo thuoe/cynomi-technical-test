@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { Prisma } from '@prisma/client';
+import { GENDER } from '@prisma/client';
 
 @Injectable()
 export class UserService {
@@ -10,11 +10,27 @@ export class UserService {
     return 'Hello World!';
   }
 
-  async createUser({ name, gender }: Prisma.UserCreateInput) {
+  async createUser(data: {
+    name: string;
+    gender: GENDER;
+    sleepPattern: {
+      duration: number;
+      date?: string;
+    };
+  }) {
+    const { sleepPattern, ...user } = data;
     return this.prisma.user.create({
       data: {
-        name,
-        gender,
+        ...user,
+        sleepPatterns: {
+          create: {
+            ...sleepPattern,
+            date: new Date(sleepPattern.date),
+          },
+        },
+      },
+      include: {
+        sleepPatterns: true,
       },
     });
   }
