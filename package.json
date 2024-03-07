@@ -1,0 +1,19 @@
+{
+  "name": "cynomi-technical-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "start": "node apps/server/dist/main"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^1.12.5"
+  },
+  "workspaces": [
+    "apps/*"
+  ]
+}
