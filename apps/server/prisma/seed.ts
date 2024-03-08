@@ -14,6 +14,12 @@ const getRandomDateInLastWeek = (): Date => {
   );
 };
 
+const generateSleepPattern = () =>
+  Array.from({ length: 7 }).map(() => ({
+    duration: getRandomDuration(),
+    date: getRandomDateInLastWeek(),
+  }));
+
 async function generateRandomUser({
   name,
   gender,
@@ -29,20 +35,7 @@ async function generateRandomUser({
       gender,
       sleepPatterns: {
         createMany: {
-          data: [
-            {
-              duration: getRandomDuration(),
-              date: getRandomDateInLastWeek(),
-            },
-            {
-              duration: getRandomDuration(),
-              date: getRandomDateInLastWeek(),
-            },
-            {
-              duration: getRandomDuration(),
-              date: getRandomDateInLastWeek(),
-            },
-          ],
+          data: generateSleepPattern(),
         },
       },
     },
