@@ -3,6 +3,10 @@
 - [Prerequisites](#prerequisites)
 - [Get Started (Local Development)](#get-started-local-development)
 - [View persisted data](#view-persisted-data)
+- [Demo](#demo)
+
+Estimated Time Taken: 2-3 days
+
 
 # Prerequisites
 
@@ -46,3 +50,11 @@ If you wish to explore the DB to view newly persisted user data after submitting
 so by running `npx prisma studio` in `src/apps/server` which should present a link to a GUI.
 
 Alternatively you can also use a third party GUI to view the DB such as (DBeaver)[https://dbeaver.io/]
+
+# Demo
+
+Here is a video of a working implementation:
+
+https://github.com/thuoe/cynomi-technical-test/assets/15982721/86f806a5-035a-4467-a861-9e34cf690c9f
+
+
