@@ -29,7 +29,7 @@ npm install
 Populate the DB locally by seeding your DB with some dummy user data:
 
 ```sh
-npm run migrate
+npm run reset
 ```
 
 Next to serve the client side application coupled with the Nest.js server, simply run this script in the root:
