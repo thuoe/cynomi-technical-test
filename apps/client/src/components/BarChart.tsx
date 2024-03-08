@@ -18,7 +18,7 @@ const BarChart = ({ userData }: Props): JSX.Element => {
     .map(({ date, duration }) => ({ date, duration }))
 
   const xAxisData = sortedData.map(({ date }) =>
-    format(new Date(date), 'yyyy-mm-dd'),
+    format(new Date(date), 'yyyy-MM-dd'),
   )
   const seriesData = sortedData.map(({ duration }) => duration)
 
