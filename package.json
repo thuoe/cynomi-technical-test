@@ -6,6 +6,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "reset": "turbo run reset",
     "start": "node apps/server/dist/main"
   },
   "author": "",
