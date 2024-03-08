@@ -22,7 +22,14 @@ const UserForm = (): JSX.Element => {
     })
   }
   return (
-    <Card style={{ maxWidth: 600 }}>
+    <Card 
+      style={{ 
+        display: 'flex',
+        justifyContent: 'center',
+        position: 'relative',
+        margin: '0 auto',
+        maxWidth: 600,
+      }}>
       {contextHolder}
       <Title>Enter User Details</Title>
       <Form    

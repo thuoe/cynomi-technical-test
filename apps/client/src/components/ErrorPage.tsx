@@ -5,12 +5,10 @@ const ErrorPage = (): JSX.Element => {
   const error = useRouteError()
   if (isRouteErrorResponse(error)) {
     return (
-      <div id="error-page">
-        <h1>Oops!</h1>
-        <p>{`Sorry, an unexpected error has occurred when redirecting to ${location.pathname}.`}</p>
-        <p>
-          <i>{error.statusText || error.data}</i>
-        </p>
+      <div id="error-page" style={ { textAlign: 'center',  fontFamily: 'Arial, sans-serif'}}>
+        <h1>404</h1>
+        <p>Oops! Page Not found.</p>
+        <p>Invalid path: {`${location.pathname}`}</p>
       </div>
     );
   } else {
