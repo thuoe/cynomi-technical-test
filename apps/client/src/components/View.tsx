@@ -61,6 +61,9 @@ const View = (): JSX.Element => {
             setSelectedKey(key)
           }
         }}
+        pagination={{
+           defaultPageSize: 5
+        }}
         rowKey={(record) => record.id}
       />
       <Card>
