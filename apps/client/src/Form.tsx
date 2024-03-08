@@ -1,4 +1,6 @@
 import { Button, Card, DatePicker, Form, Input, Select, Typography, notification } from 'antd'
+import { useState } from 'react'
+import saveUser from './hooks/saveUser'
 
 type FieldValues = {
   name: string
@@ -11,28 +13,35 @@ const { Title } = Typography
 
 const UserForm = (): JSX.Element => {
   const [api, contextHolder] = notification.useNotification();
+  const [loading, setIsLoading] = useState<boolean>(false)
 
-  const showSuccessToast = (message: string) => {
-    api.success({
+  const showSuccessToast = (type: 'success' | 'error') => {
+    const message = type === 'success' ? 'User Record Saved' : 'Failure to save new record!'
+    api[type]({
       message
     })
   }
-
   return (
     <Card style={{ maxWidth: 600 }}>
       {contextHolder}
-      <Title>Complete User Form</Title>
+      <Title>Enter User Details</Title>
       <Form    
         name='basic'
         layout='vertical'
         autoComplete='off'
-        onFinish={values => {
-          const finalValues = {
-            ...values,
-            date: values.date.format('YYYY-MM-DD')
-          }
-          console.log(finalValues)
-          // TODO: API call...
+        onFinish={async (values) => {
+          setIsLoading(true)
+          const { error } = await saveUser({
+            name: values.name,
+            gender: values.gender,
+            sleepPattern: {
+              duration: Number(values.duration),
+              date: new Date(values.date).toISOString()
+            }
+          })
+          const type = error === undefined ? 'success' : 'error'
+          showSuccessToast(type) 
+          setIsLoading(false)
         }}
       >
         <Form.Item<FieldValues> label='Username' name='name' rules={[{ required: true, message: 'Please enter a username!', type: 'string'}]}>
@@ -65,7 +74,7 @@ const UserForm = (): JSX.Element => {
           <DatePicker />
          </Form.Item>
         <Form.Item labelCol={{ offset: 12 }}>
-          <Button type='primary' htmlType='submit' onClick={() => {showSuccessToast('User Record Saved!')}}>
+          <Button type='primary' loading={loading} htmlType='submit'>
             Save User Record
           </Button>
         </Form.Item>
