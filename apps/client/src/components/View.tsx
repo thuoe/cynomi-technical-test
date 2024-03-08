@@ -3,6 +3,7 @@ import { Card, Space, Table, Typography } from "antd"
 import { useEffect, useState } from "react"
 import { User } from "../types"
 import BarChart from "./BarChart"
+import fetchUsers from "../hooks/fetchUsers"
 
 type TableData = Pick<User, 'id' | 'name' | 'gender'> & {
   submissions: number
@@ -37,10 +38,11 @@ const View = (): JSX.Element => {
   const user = users.find(({ id }) => id === selectedKey)
 
   useEffect(() => {
-    fetch('/api/users')
-    .then((response) => response.json())
-    .then((data: User[]) => {
-      setUsers(data)
+    fetchUsers<User[]>()
+    .then(({ data }) => {
+      if (data) {
+        setUsers(data)
+      }
     })
   }, [])
 
