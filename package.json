@@ -6,6 +6,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
     "reset": "turbo run reset",
     "start": "node apps/server/dist/main"
   },

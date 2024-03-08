@@ -1,7 +1,7 @@
-import * as echarts from 'echarts';
-import { useEffect, useRef, useState } from 'react';
-import { User } from '../types';
-import { format } from 'date-fns';
+import * as echarts from 'echarts'
+import { useEffect, useRef, useState } from 'react'
+import { User } from '../types'
+import { format } from 'date-fns'
 
 type Props = {
   userData: User
@@ -10,12 +10,16 @@ type Props = {
 const BarChart = ({ userData }: Props): JSX.Element => {
   const ref = useRef<HTMLDivElement | null>(null)
   const [chart, setChart] = useState<echarts.ECharts | null>(null)
-  
-  const sortedData = userData.sleepPatterns.sort((a, b) => {
-    return new Date(a.date).getTime() - new Date(b.date).getTime()
-  }).map(({ date, duration }) => ({ date, duration })) 
 
-  const xAxisData = sortedData.map(({ date }) => format(new Date(date), 'yyyy-mm-dd'))
+  const sortedData = userData.sleepPatterns
+    .sort((a, b) => {
+      return new Date(a.date).getTime() - new Date(b.date).getTime()
+    })
+    .map(({ date, duration }) => ({ date, duration }))
+
+  const xAxisData = sortedData.map(({ date }) =>
+    format(new Date(date), 'yyyy-mm-dd'),
+  )
   const seriesData = sortedData.map(({ duration }) => duration)
 
   const option: echarts.EChartsOption = {
@@ -24,21 +28,21 @@ const BarChart = ({ userData }: Props): JSX.Element => {
       nameLocation: 'middle',
       nameGap: 50,
       type: 'category',
-      data: xAxisData
+      data: xAxisData,
     },
     yAxis: {
       name: 'Sleep Duration (hours)',
       nameLocation: 'middle',
       nameGap: 50,
-      type: 'value'
+      type: 'value',
     },
     series: [
       {
         data: seriesData,
-        type: 'bar'
-      }
+        type: 'bar',
+      },
     ],
-  };
+  }
 
   useEffect(() => {
     if (ref.current) {
@@ -46,15 +50,13 @@ const BarChart = ({ userData }: Props): JSX.Element => {
     }
   }, [])
 
-  option && chart?.setOption(option);
+  option && chart?.setOption(option)
 
-  window.addEventListener('resize', function() {
-    chart?.resize();
-  });
+  window.addEventListener('resize', function () {
+    chart?.resize()
+  })
 
-  return (
-    <div ref={ref} style={{ width: '100%', height: 700 }}></div>
-  )
+  return <div ref={ref} style={{ width: '100%', height: 700 }}></div>
 }
 
 export default BarChart
