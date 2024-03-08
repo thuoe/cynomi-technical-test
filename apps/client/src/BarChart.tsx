@@ -1,21 +1,22 @@
 import * as echarts from 'echarts';
 import { useEffect, useRef, useState } from 'react';
-import { UserData } from './types';
+import { User } from './types';
+import { format } from 'date-fns';
 
 type Props = {
-  userData: UserData
+  userData: User
 }
 
 const BarChart = ({ userData }: Props): JSX.Element => {
   const ref = useRef<HTMLDivElement | null>(null)
   const [chart, setChart] = useState<echarts.ECharts | null>(null)
   
-  const sortedData = userData.submissions.sort((a, b) => {
+  const sortedData = userData.sleepPatterns.sort((a, b) => {
     return new Date(a.date).getTime() - new Date(b.date).getTime()
-  }).map(({ date, durationSlept }) => ({ date, durationSlept })) 
+  }).map(({ date, duration }) => ({ date, duration })) 
 
-  const xAxisData = sortedData.map(({ date }) => date)
-  const seriesData = sortedData.map(({ durationSlept }) => durationSlept)
+  const xAxisData = sortedData.map(({ date }) => format(new Date(date), 'yyyy-mm-dd'))
+  const seriesData = sortedData.map(({ duration }) => duration)
 
   const option: echarts.EChartsOption = {
     xAxis: {
