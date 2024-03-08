@@ -1,17 +1,40 @@
-const saveUser = async <T,>(body: object) => {
-  try {
-    const res = await fetch('/api/user', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    const json = await res.json() as T;
-    return { response: json, error: null };
-  } catch (error) {
-    return { response: null, error: error };
+import { useMutation } from "@tanstack/react-query"
+
+type Params = {
+  name: string,
+  gender: string,
+  sleepPattern: {
+    duration: number
+    date?: string
   }
 }
 
-export default saveUser
+const saveUser = <T,>(params: Params) => fetch('/api/user', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+    body: JSON.stringify(params),
+}).then(response => response.json() as T)
+
+const useSaveUser = <T,>(
+  onSuccess?: (
+    data: T | null | undefined,
+    variables: Params,
+    context: T,
+  ) => void,
+  onError?: (
+    error: Error, 
+    variables: Params, 
+    context: T | undefined) => void
+  ) => {
+  return useMutation({
+    mutationFn: (variables) => {
+      return saveUser<T>(variables)
+    },
+    onSuccess,
+    onError,
+  })
+}
+
+export default useSaveUser
