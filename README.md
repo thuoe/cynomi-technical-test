@@ -14,7 +14,7 @@ Please run the command to achieve this:
 docker-compose up -d
 ```
 
-Next, inside the `src/apps/server` amend the `.env.example` file name to be `.env`. This env varaible used to establish a connection for the server
+Next, inside the `src/apps/server` amend the `.env.example` file name to be `.env`. This env varaible is used to establish a connection for the server
 
 # Get Started (Local Development)
 
@@ -32,7 +32,7 @@ Populate the DB locally by seeding your DB with some dummy user data:
 npm run reset
 ```
 
-Next to serve the client side application coupled with the Nest.js server, simply run this script in the root:
+Next to serve the client side application coupled with the Nest.js server, simply run this script:
 
 ```sh
 npm run dev
@@ -45,4 +45,4 @@ You can access the application locally via <http://localhost:5173/>
 If you wish to explore the DB to view newly persisted user data after submitting into the form, you can do
 so by running `npx prisma studio` in `src/apps/server` which should present a link to a GUI.
 
-Alternatively you can also use a third party GUI view the DB such as (DBeaver)[https://dbeaver.io/]
+Alternatively you can also use a third party GUI to view the DB such as (DBeaver)[https://dbeaver.io/]
