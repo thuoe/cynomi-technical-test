@@ -7,45 +7,45 @@ import {
   Select,
   Typography,
   notification,
-} from "antd";
-import useSaveUser from "../hooks/saveUser";
-import { User } from "../types";
+} from 'antd'
+import useSaveUser from '../hooks/saveUser'
+import { User } from '../types'
 
 type FieldValues = {
-  name: string;
-  gender: "male" | "female" | "other";
-  duration: number;
-  date: Date;
-};
+  name: string
+  gender: 'male' | 'female' | 'other'
+  duration: number
+  date: Date
+}
 
-const { Title } = Typography;
+const { Title } = Typography
 
 const UserForm = (): JSX.Element => {
-  const [api, contextHolder] = notification.useNotification();
+  const [api, contextHolder] = notification.useNotification()
   const saveUser = useSaveUser<User>(
     () => {
-      showToast("success");
+      showToast('success')
     },
     () => {
-      showToast("error");
+      showToast('error')
     },
-  );
+  )
 
-  const showToast = (type: "success" | "error") => {
+  const showToast = (type: 'success' | 'error') => {
     const message =
-      type === "success" ? "User Record Saved" : "Failure to save new record!";
+      type === 'success' ? 'User Record Saved' : 'Failure to save new record!'
     api[type]({
       message,
-    });
-  };
+    })
+  }
 
   return (
     <Card
       style={{
-        display: "flex",
-        justifyContent: "center",
-        position: "relative",
-        margin: "0 auto",
+        display: 'flex',
+        justifyContent: 'center',
+        position: 'relative',
+        margin: '0 auto',
         maxWidth: 600,
       }}
     >
@@ -63,7 +63,7 @@ const UserForm = (): JSX.Element => {
               duration: Number(values.duration),
               date: new Date(values.date).toISOString(),
             },
-          });
+          })
         }}
       >
         <Form.Item<FieldValues>
@@ -72,8 +72,8 @@ const UserForm = (): JSX.Element => {
           rules={[
             {
               required: true,
-              message: "Please enter a username!",
-              type: "string",
+              message: 'Please enter a username!',
+              type: 'string',
             },
           ]}
         >
@@ -82,7 +82,7 @@ const UserForm = (): JSX.Element => {
         <Form.Item<FieldValues>
           name="gender"
           label="Gender"
-          rules={[{ required: true, message: "Please provide gender!" }]}
+          rules={[{ required: true, message: 'Please provide gender!' }]}
         >
           <Select>
             <Select.Option value="male">Male</Select.Option>
@@ -94,15 +94,15 @@ const UserForm = (): JSX.Element => {
           label="Duration of Sleep (hours)"
           name="duration"
           rules={[
-            { required: true, message: "Please provide duration of sleep!" },
+            { required: true, message: 'Please provide duration of sleep!' },
             {
               validator(_, value) {
                 if (!isNaN(value)) {
-                  return Promise.resolve();
+                  return Promise.resolve()
                 }
                 return Promise.reject(
-                  new Error("The duration of sleep must be a numerical value!"),
-                );
+                  new Error('The duration of sleep must be a numerical value!'),
+                )
               },
             },
           ]}
@@ -112,7 +112,7 @@ const UserForm = (): JSX.Element => {
         <Form.Item<FieldValues>
           name="date"
           label="Date Recorded"
-          rules={[{ required: true, message: "Please provide date!" }]}
+          rules={[{ required: true, message: 'Please provide date!' }]}
         >
           <DatePicker />
         </Form.Item>
@@ -123,7 +123,7 @@ const UserForm = (): JSX.Element => {
         </Form.Item>
       </Form>
     </Card>
-  );
-};
+  )
+}
 
-export default UserForm;
+export default UserForm

@@ -1,37 +1,33 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation } from '@tanstack/react-query'
 
 type Params = {
-  name: string,
-  gender: string,
+  name: string
+  gender: string
   sleepPattern: {
     duration: number
     date?: string
   }
 }
 
-const saveUser = <T,>(params: Params) => fetch('/api/user', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
+const saveUser = <T>(params: Params) =>
+  fetch('/api/user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(params),
-}).then(response => response.json() as T)
+  }).then((response) => response.json() as T)
 
-const useSaveUser = <T,>(
+const useSaveUser = <T>(
   onSuccess?: (
     data: T | null | undefined,
     variables: Params,
     context: T,
   ) => void,
-  onError?: (
-    error: Error, 
-    variables: Params, 
-    context: T | undefined) => void
-  ) => {
+  onError?: (error: Error, variables: Params, context: T | undefined) => void,
+) => {
   return useMutation({
-    mutationFn: (variables) => {
-      return saveUser<T>(variables)
-    },
+    mutationFn: (variables) => saveUser<T>(variables),
     onSuccess,
     onError,
   })
