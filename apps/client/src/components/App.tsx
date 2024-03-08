@@ -24,7 +24,7 @@ const App = ({ content }: Props): JSX.Element => {
   const selectedNavItem = navItems.find(item => item.key === loader) ?? navItems[0]
   return (
     <> 
-    <Layout style={{ height: '100vh', overflow: "auto"}}>
+    <Layout style={{ minHeight: '100vh' }}>
       <Header style={{ display: 'flex', alignItems: 'center'}}>
         <Menu selectedKeys={[String(selectedNavItem.key)]} theme='dark' mode='horizontal' items={navItems} style={{ flex: 1, minWidth: 0 }} />
       </Header>
