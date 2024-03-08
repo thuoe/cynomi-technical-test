@@ -1,11 +1,10 @@
-const fetchUsers = async <T,>() => {
-    try {
-      const res = await fetch('/api/users', { method: "GET" });
-      const json = await res.json() as T;
-      return { data: json, error: null };
-    } catch (error) {
-      return { data: null, error: error };
-    }
-  }
+import { useQuery } from "@tanstack/react-query";
+
+const useFetchUsers = <T,>() => {
+  const { isPending, error, data } = useQuery({ queryKey: ['users'], queryFn: () => {
+    return fetch('/api/users').then((res) => res.json() as Promise<T>)
+  }})
+  return { isPending, error, data }
+}
   
-  export default fetchUsers
+  export default useFetchUsers

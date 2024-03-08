@@ -1,6 +1,6 @@
 import { Button, Card, DatePicker, Form, Input, Select, Typography, notification } from 'antd'
-import { useState } from 'react'
-import saveUser from '../hooks/saveUser'
+import useSaveUser from '../hooks/saveUser'
+import { User } from '../types'
 
 type FieldValues = {
   name: string
@@ -13,14 +13,22 @@ const { Title } = Typography
 
 const UserForm = (): JSX.Element => {
   const [api, contextHolder] = notification.useNotification();
-  const [loading, setIsLoading] = useState<boolean>(false)
+  const saveUser = useSaveUser<User>(
+    () => {
+      showToast('success') 
+    },
+    () => {
+      showToast('error')
+    }
+  )
 
-  const showSuccessToast = (type: 'success' | 'error') => {
+  const showToast = (type: 'success' | 'error') => {
     const message = type === 'success' ? 'User Record Saved' : 'Failure to save new record!'
     api[type]({
       message
     })
   }
+
   return (
     <Card 
       style={{ 
@@ -36,9 +44,8 @@ const UserForm = (): JSX.Element => {
         name='basic'
         layout='vertical'
         autoComplete='off'
-        onFinish={async (values) => {
-          setIsLoading(true)
-          const { error } = await saveUser({
+        onFinish={(values) => {
+          saveUser.mutate({
             name: values.name,
             gender: values.gender,
             sleepPattern: {
@@ -46,9 +53,6 @@ const UserForm = (): JSX.Element => {
               date: new Date(values.date).toISOString()
             }
           })
-          const type = error === undefined ? 'success' : 'error'
-          showSuccessToast(type) 
-          setIsLoading(false)
         }}
       >
         <Form.Item<FieldValues> label='Username' name='name' rules={[{ required: true, message: 'Please enter a username!', type: 'string'}]}>
@@ -81,7 +85,7 @@ const UserForm = (): JSX.Element => {
           <DatePicker />
          </Form.Item>
         <Form.Item labelCol={{ offset: 12 }}>
-          <Button type='primary' loading={loading} htmlType='submit'>
+          <Button type='primary' htmlType='submit'>
             Save User Record
           </Button>
         </Form.Item>
