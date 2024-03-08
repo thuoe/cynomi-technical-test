@@ -1,71 +1,10 @@
 import type { TableProps } from "antd"
 import { Card, Space, Table, Typography } from "antd"
-import { addDays } from "date-fns"
-import { useState } from "react"
-import { UserData } from "./types"
+import { useEffect, useState } from "react"
+import { User } from "../types"
 import BarChart from "./BarChart"
 
-const dummyUserData: UserData[] = [
-  {
-    id: '1',
-    name: 'Eddie',
-    gender: 'Male',
-    submissions: [
-      {
-        durationSlept: 2,
-        date: addDays(new Date(), 1).toDateString()
-      },
-      {
-        durationSlept: 4,
-        date: addDays(new Date(), 2).toDateString()
-      },
-      {
-        durationSlept: 5,
-        date: addDays(new Date(), 3).toDateString()
-      },
-    ],
-  },
-  {
-    id: '2',
-    name: 'Sam',
-    gender: 'Male',
-    submissions: [
-      {
-        durationSlept: 7,
-        date: addDays(new Date(), 1).toDateString()
-      }
-    ] 
-  },
-  {
-    id: '3',
-    name: 'Jude',
-    gender: 'Male',
-    submissions: [
-      {
-        durationSlept: 11,
-        date: addDays(new Date(), 1).toDateString()
-      }
-    ] 
-  },
-  {
-    id: '4',
-    name: 'Anthony',
-    gender: 'Male',
-    submissions: [
-      {
-        durationSlept: 9,
-        date: addDays(new Date(), 1).toDateString()
-      }
-    ] 
-  }
-]
-
-const finalDataSource = dummyUserData.map((data) => ({
-  ...data,
-  submissions: data.submissions.length
-}))
-
-type TableData = Pick<UserData, 'id' | 'name' | 'gender'> & {
+type TableData = Pick<User, 'id' | 'name' | 'gender'> & {
   submissions: number
 }
 
@@ -92,13 +31,28 @@ const columns: TableProps<TableData>['columns'] = [
 
 const { Title, Paragraph } = Typography
 
-const View = () => {
+const View = (): JSX.Element => {
   const [selectedKey, setSelectedKey] = useState<React.Key | null>(null)
-  const userData = dummyUserData.find(({ id }) => id === selectedKey)
+  const [users, setUsers] = useState<User[]>([])
+  const user = users.find(({ id }) => id === selectedKey)
+
+  useEffect(() => {
+    fetch('/api/users')
+    .then((response) => response.json())
+    .then((data: User[]) => {
+      setUsers(data)
+    })
+  }, [])
+
+  const finalDataSource = users.map((data) => ({
+    ...data,
+    submissions: data.sleepPatterns.length
+  }))
+
   return (
     <Space direction="vertical" style={{ display: 'flex', width: '100%'}}>
       <Title>User Records</Title>
-      <Table 
+      <Table
         dataSource={finalDataSource} 
         columns={columns}
         rowSelection={{
@@ -111,11 +65,11 @@ const View = () => {
       />
       <Card>
         {
-          userData ? (
+          user ? (
             <>
               <Space direction="vertical" style={{ display: 'flex', width: '100%'}}>
-                <Title>{`${userData.name}'s Sleep Pattern`}</Title>
-                <BarChart userData={userData}/>
+                <Title>{`${user.name}'s Sleep Pattern`}</Title>
+                <BarChart userData={user}/>
               </Space>
             </>
           ) :   

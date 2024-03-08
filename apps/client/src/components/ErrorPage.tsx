@@ -1,6 +1,6 @@
 import { useRouteError, isRouteErrorResponse, useLocation } from "react-router-dom"
 
-const ErrorPage = () => {
+const ErrorPage = (): JSX.Element => {
   const location = useLocation()
   const error = useRouteError()
   if (isRouteErrorResponse(error)) {

@@ -3,14 +3,16 @@ export enum NavItem {
     View = 'View Data'
   }
   
-  export type Submission = {
-    durationSlept: number
+  export type SleepPattern = {
+    id: number
+    duration: number
     date: string
+    userId: number
   }
   
-  export type UserData = {
-    id: string
+  export type User = {
+    id: number
     name: string,
-    gender: 'Male' | 'Female' | 'Other'
-    submissions: Submission[]
+    gender: 'male' | 'female' | 'other'
+    sleepPatterns: SleepPattern[]
   }

@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import App from './components/App.tsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import ErrorPage from './ErrorPage.tsx';
-import UserForm from './Form.tsx';
-import View from './View.tsx';
+import ErrorPage from './components/ErrorPage.tsx';
+import UserForm from './components/Form.tsx';
+import View from './components/View.tsx';
 import { NavItem } from './types.ts';
 
 const router = createBrowserRouter([

@@ -2,7 +2,7 @@ import { Layout, Menu } from 'antd'
 import { Content, Footer, Header } from 'antd/es/layout/layout'
 import { MenuItemType } from 'antd/es/menu/hooks/useItems'
 import { Link, useLoaderData } from 'react-router-dom'
-import { NavItem } from './types'
+import { NavItem } from '../types'
 
 const navItems: MenuItemType[] = [
   {
@@ -19,7 +19,7 @@ type Props = {
   content: JSX.Element
 }
 
-const App = ({ content }: Props) => {
+const App = ({ content }: Props): JSX.Element => {
   const loader = useLoaderData() as NavItem
   const selectedNavItem = navItems.find(item => item.key === loader) ?? navItems[0]
   return (
