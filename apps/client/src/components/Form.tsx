@@ -1,7 +1,6 @@
 import {
   Button,
   Card,
-  DatePicker,
   Form,
   Input,
   Select,
@@ -10,6 +9,7 @@ import {
 } from 'antd'
 import useSaveUser from '../hooks/saveUser'
 import { User } from '../types'
+import MyDatePicker from './DatePicker'
 
 type FieldValues = {
   name: string
@@ -114,7 +114,7 @@ const UserForm = (): JSX.Element => {
           label="Date Recorded"
           rules={[{ required: true, message: 'Please provide date!' }]}
         >
-          <DatePicker />
+          <MyDatePicker maxDate={new Date()} />
         </Form.Item>
         <Form.Item labelCol={{ offset: 12 }}>
           <Button type="primary" htmlType="submit">
