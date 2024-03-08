@@ -1,6 +1,6 @@
 import * as echarts from 'echarts';
 import { useEffect, useRef, useState } from 'react';
-import { User } from './types';
+import { User } from '../types';
 import { format } from 'date-fns';
 
 type Props = {

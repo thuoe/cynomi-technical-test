@@ -1,7 +1,7 @@
 import type { TableProps } from "antd"
 import { Card, Space, Table, Typography } from "antd"
 import { useEffect, useState } from "react"
-import { User } from "./types"
+import { User } from "../types"
 import BarChart from "./BarChart"
 
 type TableData = Pick<User, 'id' | 'name' | 'gender'> & {

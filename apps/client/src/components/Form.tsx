@@ -1,6 +1,6 @@
 import { Button, Card, DatePicker, Form, Input, Select, Typography, notification } from 'antd'
 import { useState } from 'react'
-import saveUser from './hooks/saveUser'
+import saveUser from '../hooks/saveUser'
 
 type FieldValues = {
   name: string
