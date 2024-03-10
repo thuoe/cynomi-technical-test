@@ -7,18 +7,17 @@
 
 Estimated Time Taken: 2-3 days
 
-
 # Prerequisites
 
-Please install [Docker](https://www.docker.com/) if you haven't already have done so on your local machine. This is required in order to spin up a container for PostgreSQL server to persist local data.
+Please install [Docker](https://www.docker.com/) if you haven't already done so on your local machine. This is required in order to spin up a Docker container of the PostgreSQL server necessary to persist local data.
 
-Please run the command to achieve this:
+Next in order to create the docker container run this command in the root of the repo:
 
 ```sh
 docker-compose up -d
 ```
 
-Next, inside the `src/apps/server` amend the `.env.example` file name to be `.env`. This env varaible is used to establish a connection for the server
+Next, inside the `apps/server` amend the `.env.example` file name to be `.env`. This env varaible is used to establish a connection between the server and the PostgreSQL DB.
 
 # Get Started (Local Development)
 
@@ -36,6 +35,9 @@ Populate the DB locally by seeding your DB with some dummy user data:
 npm run reset
 ```
 
+> [!NOTE]  
+> This command can be used to drop all tables and revert your DB to a clean state.
+
 Next to serve the client side application coupled with the Nest.js server, simply run this script:
 
 ```sh
@@ -46,15 +48,13 @@ You can access the application locally via <http://localhost:5173/>
 
 # View persisted data
 
-If you wish to explore the DB to view newly persisted user data after submitting into the form, you can do
+If you wish to explore the DB tables to view newly persisted user data after submitting into the form, you can do
 so by running `npx prisma studio` in `src/apps/server` which should present a link to a GUI.
 
-Alternatively you can also use a third party GUI to view the DB such as (DBeaver)[https://dbeaver.io/]
+Alternatively you can also use a third party GUI to view the DB such as [DBeaver](https://dbeaver.io/)
 
 # Demo
 
 Here is a video of a working implementation:
 
 https://github.com/thuoe/cynomi-technical-test/assets/15982721/86f806a5-035a-4467-a861-9e34cf690c9f
-
-
